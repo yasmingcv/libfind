@@ -1,7 +1,7 @@
 header{
     width: 100vw;
-    height: 70px;
-    background-color: var(--cor_primaria);
+    height: 10vh;
+    background-color: var(--primary_color);
     display: flex;
     flex-direction: row;
     justify-content: space-between;

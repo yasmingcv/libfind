@@ -6,7 +6,7 @@
 }
 
 :root{
-    --cor_primaria: #FFA500;
+    --primary_color: #FFA500;
 }
 body{
     background: linear-gradient(to right, #343434, #000000);
