@@ -1,0 +1,13 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+:root{
+    --cor_primaria: #FFA500;
+}
+body{
+    background: linear-gradient(to right, #343434, #000000);
+}
