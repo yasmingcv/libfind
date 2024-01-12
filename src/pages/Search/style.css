@@ -1,1 +1,23 @@
- 
+ .search {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     padding: 50px;
+     color: #FFF;
+     font-size: 1.5rem;
+     gap: 50px;
+     max-width: 100%;
+ }
+
+ .search input {
+     width: 70vw;
+     height: 30px;
+     border-radius: 50px;
+     background-color: #999999;
+     color: #FFF;
+ }
+
+ .search__results {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+ }

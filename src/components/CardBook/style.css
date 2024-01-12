@@ -1,0 +1,37 @@
+.card__book{
+    display: flex;
+    flex-direction: row;
+    background-color: #FFEAC5;
+    color: #000;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 10px;
+    gap: 10px;
+    width: 440px;
+    margin: 10px;
+}
+.img__book{
+    height: 30vh;
+    border-radius: 10px;
+}
+.card__book h1{
+    font-size: 1.5rem;
+}
+.card__book p{
+    font-size: 1.2rem;
+}
+.card__text{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.button__details{
+    text-decoration: none;
+    background-color: var(--primary_color);
+    color: #000;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    border-radius: 20px;
+    font-size: 1.2rem;
+}
