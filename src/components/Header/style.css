@@ -1,0 +1,23 @@
+header{
+    width: 100vw;
+    height: 70px;
+    background-color: var(--cor_primaria);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+.header__menu{
+    display: flex;
+    gap: 20px;
+    color: #FFF;
+}
+.menu__item{
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+}
+.logo{
+    height: 40px;
+}
