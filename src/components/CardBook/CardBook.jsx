@@ -12,7 +12,7 @@ function CardBook() {
                     <p>Jeff Kinney - Booksmile</p>
                 </div>
 
-                <Link to='/' className="button__details">Saiba mais</Link>
+                <Link to='/livro/id' className="button__details">Saiba mais</Link>
             </div>
 
         </div>
