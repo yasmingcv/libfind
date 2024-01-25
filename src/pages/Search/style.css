@@ -15,11 +15,16 @@
  .search input {
      width: 70vw;
      height: 30px;
+     border: none;
      border-radius: 50px;
      background-color: #999999;
      color: #000;
-     padding: 10px 0px;
+     padding: 0px 10px;
  }
+
+ .search input:focus{
+    outline: 2px solid var(--primary_color);
+}
 
  .search__results {
      display: flex;

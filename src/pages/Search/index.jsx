@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import CardBook from '../../components/CardBook/CardBook'
 import './style.css'
 import axios from 'axios'
@@ -8,41 +8,59 @@ function Search() {
     const [input, setInput] = useState([''])
     const [dataBooks, setDataBooks] = useState([])
 
-    
-        const fetchSearchBooks = async (name) => {
-            console.log('entrorueroeo')
-            try {
-                const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${name}`)
-                console.log('response');
+
+    const searchBooks = useCallback(() => {
+        
+
+        axios.get(`https://www.googleapis.com/books/v1/volumes?q=${input}`)
+            .then(response => {
                 setDataBooks(response.data.items)
-
-            } catch (error) {
+            }).catch(error => {
                 console.error('Erro ao buscar dados:', error)
-            }
-
-        }
-
-        // input.onChange(fetchSearchBooks(input))
-        //fetchSearchBooks('brasil')
-
-    
+            })
+    }, [input])
 
 
-   // console.log(dataBooks[0], input)
+
+    // console.log('entrorueroeo')
+    // try {
+    //     const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${name}`)
+    //     console.log('response');
+    //     setDataBooks(response.data.items)
+
+    // } catch (error) {
+    //     console.error('Erro ao buscar dados:', error)
+    // }
+
+
+
+
+    // fetchSearchBooks()
+
+
+
+
+    // console.log(dataBooks[0], input)
 
     return (
         <div className="search">
             <h2>Busque por títulos ou autores!</h2>
 
-            <input type="search" value={input} onChange={(e) => { setInput(e.target.value) }} />
+            <input
+                type="search"
+                value={input}
+                onChange={(e) => { setInput(e.target.value) }}
+                onBlur={searchBooks}
+                onKeyDown={(e) => e.key === 'Enter' && searchBooks()}
+            />
 
             <div className="book__list"></div>
 
             <div className='search__results'>
-                
+
                 {
                     dataBooks.map(book => {
-                        return(
+                        return (
                             <CardBook key={book.id} infoBook={book.volumeInfo} />
                         )
                     })
