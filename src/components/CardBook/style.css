@@ -3,7 +3,6 @@
     flex-direction: row;
     background-color: #FFEAC5;
     color: #000;
-    justify-content: space-between;
     padding: 10px;
     border-radius: 10px;
     gap: 10px;
@@ -12,6 +11,7 @@
 }
 .img__book{
     height: 30vh;
+    width: 150px;
     border-radius: 10px;
 }
 .card__book h1{
@@ -24,6 +24,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 100%;
 }
 .button__details{
     text-decoration: none;

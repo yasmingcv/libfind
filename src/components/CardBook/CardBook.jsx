@@ -3,26 +3,16 @@ import './style.css'
 
 function CardBook({infoBook}) {
 
-    
-    //fetch
-
-    let capaaa = ''
-
-    if(!infoBook.imageLinks){
-        capaaa = 'https://www.shutterstock.com/image-vector/copy-vector-icon-illustration-sign-260nw-2047612412.jpg'
-    } else {
-        capaaa = infoBook.imageLinks.thumbnail
-    }
-
-    console.log('chegou', infoBook.title);
+    let cover = infoBook.imageLinks ?  infoBook.imageLinks.thumbnail : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
+    let title = infoBook.title.length > 52 ? `${infoBook.title.slice(0, 49)}...` : infoBook.title
 
     return (
         <div className="card__book">
-            <img className='img__book' src={capaaa} alt="capa"></img>
+            <img className='img__book' src={cover} alt="capa"></img>
 
             <div className="card__text">
                 <div>
-                    <h1>{infoBook.title}</h1>
+                    <h1>{title}</h1>
                     <p>{infoBook.authors} - {infoBook.publisher}</p>
                 </div>
 

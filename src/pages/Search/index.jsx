@@ -1,46 +1,34 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import CardBook from '../../components/CardBook/CardBook'
 import './style.css'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 function Search() {
 
     const [input, setInput] = useState([''])
     const [dataBooks, setDataBooks] = useState([])
+    const [statusReq, setStatusReq] = useState(false)
 
 
     const searchBooks = useCallback(() => {
-        
+
+        Swal.showLoading()
 
         axios.get(`https://www.googleapis.com/books/v1/volumes?q=${input}`)
             .then(response => {
                 setDataBooks(response.data.items)
+                Swal.close()
             }).catch(error => {
+                Swal.close()
+                setStatusReq(true)
                 console.error('Erro ao buscar dados:', error)
+                Swal.fire({
+                    title: "Ops! Não encontramos nenhum livro :(",
+                    confirmButtonText: "OK",
+                })
             })
     }, [input])
-
-
-
-    // console.log('entrorueroeo')
-    // try {
-    //     const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${name}`)
-    //     console.log('response');
-    //     setDataBooks(response.data.items)
-
-    // } catch (error) {
-    //     console.error('Erro ao buscar dados:', error)
-    // }
-
-
-
-
-    // fetchSearchBooks()
-
-
-
-
-    // console.log(dataBooks[0], input)
 
     return (
         <div className="search">
@@ -50,30 +38,26 @@ function Search() {
                 type="search"
                 value={input}
                 onChange={(e) => { setInput(e.target.value) }}
-                onBlur={searchBooks}
+                onBlur={ searchBooks()}
                 onKeyDown={(e) => e.key === 'Enter' && searchBooks()}
             />
 
             <div className="book__list"></div>
 
-            <div className='search__results'>
+            {
+                statusReq ?
+                    <div className='search__results'>
 
-                {
-                    dataBooks.map(book => {
-                        return (
-                            <CardBook key={book.id} infoBook={book.volumeInfo} />
-                        )
-                    })
-                }
+                        {
+                            dataBooks.map(book => {
+                                return (
+                                    <CardBook key={book.id} infoBook={book.volumeInfo} />
+                                )
+                            })
+                        }
 
-            </div>
-
-            {/* {dataBooks.map(book => {
-                return(
-                    <h3 color='white'>{book.volumeInfo.title}</h3>
-                )
-                
-            })} */}
+                    </div> : <>{Swal.showLoading()}</>
+            } 
 
 
         </div>
