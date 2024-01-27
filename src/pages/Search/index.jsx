@@ -8,7 +8,6 @@ function Search() {
 
     const [input, setInput] = useState([''])
     const [dataBooks, setDataBooks] = useState([])
-    const [statusReq, setStatusReq] = useState(false)
 
 
     const searchBooks = useCallback(() => {
@@ -21,7 +20,6 @@ function Search() {
                 Swal.close()
             }).catch(error => {
                 Swal.close()
-                setStatusReq(true)
                 console.error('Erro ao buscar dados:', error)
                 Swal.fire({
                     title: "Ops! Não encontramos nenhum livro :(",
@@ -38,26 +36,26 @@ function Search() {
                 type="search"
                 value={input}
                 onChange={(e) => { setInput(e.target.value) }}
-                onBlur={ searchBooks()}
+                // onBlur={ input === '' ? null  :  searchBooks }
                 onKeyDown={(e) => e.key === 'Enter' && searchBooks()}
             />
 
             <div className="book__list"></div>
 
             {
-                statusReq ?
-                    <div className='search__results'>
 
-                        {
-                            dataBooks.map(book => {
-                                return (
-                                    <CardBook key={book.id} infoBook={book.volumeInfo} />
-                                )
-                            })
-                        }
+                <div className='search__results'>
 
-                    </div> : <>{Swal.showLoading()}</>
-            } 
+                    {
+                        dataBooks.map(book => {
+                            return (
+                                <CardBook key={book.id} infoBook={book} />
+                            )
+                        })
+                    }
+
+                </div>
+            }
 
 
         </div>
