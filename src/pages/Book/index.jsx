@@ -1,6 +1,10 @@
 import { FaBookmark, FaRegBookmark } from "react-icons/fa"
 import './style.css'
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import axios from 'axios'
+import Swal from 'sweetalert2'
+const moment = require('moment')
 
 function Bookmark() {
     const [isBookmarked, setIsBookmarked] = useState(false)
@@ -20,40 +24,64 @@ function Bookmark() {
     )
 }
 
-function Classification() {
+function Classification({classification}) {
     return (
-        <p className="classification">Juvenile Ficton</p>
+        <p className="classification">{classification}</p>
     )
 }
 
 function Book() {
+    const [dataBook, setDataBook] = useState([])
+    const params = useParams()
+    let cover = dataBook.imageLinks ?  dataBook.imageLinks.thumbnail : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
+
+    useEffect(() => {
+
+        Swal.showLoading()
+
+        axios.get(`https://www.googleapis.com/books/v1/volumes/${params.id}`)
+            .then(response => {
+                setDataBook(response.data.volumeInfo)
+                Swal.close()
+            }).catch(error => {
+                Swal.close()
+                console.error('Erro ao buscar dados:', error)
+                Swal.fire({
+                    title: "Ops! Não encontramos nenhum livro :(",
+                    confirmButtonText: "OK",
+                })
+            })
+    }, [])
+
+    console.log(dataBook);
+    
     return (
         <div className="book">
-            <img src="https://books.google.com/books/content?id=t_6VEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" alt="capa do livro" />
+            <img src={cover} alt="capa do livro" />
             <div className="book__details">
                 <div className="book__title">
                     <span className="title__text">
-                        <h1 >O diário de um banana 1</h1>
+                        <h1>{dataBook.title}</h1>
                         <Bookmark />
                     </span>
-                    <p className="book__autor">Jeff Kinney - BOOKSMILE</p>
+                    <p className="book__autor">{dataBook.authors}</p>
                 </div>
 
 
 
+                <p className="book__description" dangerouslySetInnerHTML={{__html: dataBook.description}}/>
 
-                <p className="book__description">Como o Greg diz no seu diário: Não esperem que eu me ponha para aqui com "Querido Diário" isto e "Querido Diário" aquilo. Felizmente para nós, o que o Greg diz e o que realmente faz são duas coisas muito diferentes.Não é fácil ser criança. E ninguém sabe isso melhor do que o Greg Heffley, que se vê aprisionado na escola preparatória, onde fracotes minorcaspidem os corredores com miúdos mais altos e malvados que já fazem a barba. Em O Diário de um Banana, o autor e ilustrador Jeff Kinney apresenta-nos um herói improvável.Como o Greg diz no seu diário: Não esperem que eu me ponha para aqui com "Querido Diário" isto e "Querido Diário" aquilo. Felizmente para nós, o que o Greg diz e o que realmente faz são duas coisas muito diferentes. O mundo está louco pela coleção O Diário de um Banana e pelo Jeff Kinney! The Sun Jeff Kinney está no topo, juntamente com J. K. Rowling, dos autores infantojuvenis mais bem-sucedidos do mundo.
-                </p>
-
-                <strong>224 páginas | Publicado em 21/10/2022</strong>
+                <strong>{dataBook.pageCount} páginas | Publicado em {moment(dataBook.publishedDate).format('DD/MM/YYYY') }</strong>
 
                 <div className="classifications">
-                    <Classification />
-                    <Classification />
-                    <Classification />
+                    {
+                        dataBook.categories ? dataBook.categories.map((category) => {
+                            return <Classification classification={category}/>
+                        }) : null
+                    }
                 </div>
 
-                <button className="button__access">Acessar a prévia</button>
+                <a target="_blank" className="button__access" href={dataBook.previewLink}>Acessar a prévia</a>
 
             </div>
         </div>
