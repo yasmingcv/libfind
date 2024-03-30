@@ -6,11 +6,26 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 const moment = require('moment')
 
-function Bookmark() {
+
+function Bookmark(book, dataBook) {
     const [isBookmarked, setIsBookmarked] = useState(false)
 
+    const svdBooks = localStorage.getItem('svdBooks')
+    let savedBooks = svdBooks ? JSON.parse(svdBooks) : []
+
     const handleBookmarkClick = () => {
-        setIsBookmarked(!isBookmarked)
+        console.log(dataBook);
+        if(isBookmarked){
+            setIsBookmarked(false)
+            savedBooks = savedBooks.splice(savedBooks.indexOf(book), 1)
+        } else {
+            setIsBookmarked(true)
+            savedBooks.push({id: book.book, title: dataBook.title, authors: dataBook.authors, publisher: dataBook.publisher})
+        }
+
+        localStorage.setItem('svdBooks', JSON.stringify(savedBooks))
+        console.log(savedBooks);
+        console.log(savedBooks.indexOf(book));
     }
 
     return (
@@ -53,7 +68,7 @@ function Book() {
             })
     }, [])
 
-    console.log(dataBook);
+   
     
     return (
         <div className="book">
@@ -62,7 +77,7 @@ function Book() {
                 <div className="book__title">
                     <span className="title__text">
                         <h1>{dataBook.title}</h1>
-                        <Bookmark />
+                        <Bookmark book={params.id} dataBook={dataBook}/>
                     </span>
                     <p className="book__autor">{dataBook.authors}</p>
                 </div>

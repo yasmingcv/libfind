@@ -16,13 +16,20 @@ function Search() {
 
         axios.get(`https://www.googleapis.com/books/v1/volumes?q=${input}`)
             .then(response => {
-                setDataBooks(response.data.items)
-                Swal.close()
+                if (response.data.totalItems !== 0) {
+                    setDataBooks(response.data.items)
+                    Swal.close()
+                } else {
+                    Swal.fire({
+                        title: "Ops! Não encontramos nenhum livro :(",
+                        confirmButtonText: "OK",
+                    })
+                }
             }).catch(error => {
                 Swal.close()
                 console.error('Erro ao buscar dados:', error)
                 Swal.fire({
-                    title: "Ops! Não encontramos nenhum livro :(",
+                    title: "Ops! Tivemos um erro inesperado :( Tente novamente mais tarde.",
                     confirmButtonText: "OK",
                 })
             })
@@ -30,13 +37,14 @@ function Search() {
 
     return (
         <div className="search">
+
+
             <h2>Busque por títulos ou autores!</h2>
 
             <input
                 type="search"
                 value={input}
                 onChange={(e) => { setInput(e.target.value) }}
-                // onBlur={ input === '' ? null  :  searchBooks }
                 onKeyDown={(e) => e.key === 'Enter' && searchBooks()}
             />
 
@@ -47,11 +55,27 @@ function Search() {
                 <div className='search__results'>
 
                     {
-                        dataBooks.map(book => {
-                            return (
-                                <CardBook key={book.id} infoBook={book} />
-                            )
-                        })
+                        dataBooks != null ?
+
+                            dataBooks.map(book => {
+                                return (
+
+                                    <CardBook
+                                        key={book.id}
+                                        id={book.id}
+                                        cover={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'}
+                                        title={book.volumeInfo.title}
+                                        authors={book.volumeInfo.authors}
+                                        publisher={book.volumeInfo.publisher}
+                                    />
+                                )
+
+
+                            })
+
+                            : null
+
+
                     }
 
                 </div>

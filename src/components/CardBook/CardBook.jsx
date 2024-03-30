@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom"
 import './style.css'
 
-function CardBook({infoBook}) {
+function CardBook({id, cover, title, authors, publisher}) {
+    console.log(cover);
 
-    let cover = infoBook.volumeInfo.imageLinks ?  infoBook.volumeInfo.imageLinks.thumbnail : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
-    let title = infoBook.volumeInfo.title.length > 52 ? `${infoBook.volumeInfo.title.slice(0, 49)}...` : infoBook.volumeInfo.title
+    //cover = infoBook.volumeInfo.imageLinks ?  infoBook.volumeInfo.imageLinks.thumbnail : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
+    let titleFormatted = title.length > 52 ? `${title.slice(0, 49)}...` : title
 
     return (
         <div className="card__book">
@@ -12,11 +13,11 @@ function CardBook({infoBook}) {
 
             <div className="card__text">
                 <div>
-                    <h1>{title}</h1>
-                    <p>{infoBook.volumeInfo.authors} - {infoBook.volumeInfo.publisher}</p>
+                    <h1>{titleFormatted}</h1>
+                    <p>{authors} - {publisher}</p>
                 </div>
 
-                <Link to={'/livro/' + infoBook.id} className="button__details">Saiba mais</Link>
+                <Link to={'/livro/' + id} className="button__details">Saiba mais</Link>
             </div>
 
         </div>
