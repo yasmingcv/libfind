@@ -1,7 +1,7 @@
 import { FaBookmark, FaRegBookmark } from "react-icons/fa"
 import './style.css'
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import axios from 'axios'
 import Swal from 'sweetalert2'
 const moment = require('moment')
@@ -53,7 +53,7 @@ function Book() {
     const [dataBook, setDataBook] = useState([])
     const params = useParams()
     let cover = dataBook.imageLinks ? dataBook.imageLinks.thumbnail : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
-
+    const navigate = useNavigate()
 
     useEffect(() => {
 
@@ -67,9 +67,11 @@ function Book() {
                 Swal.close()
                 console.error('Erro ao buscar dados:', error)
                 Swal.fire({
-                    title: "Ops! Não encontramos nenhum livro :(",
+                    title: "Ops! Livro não encontrado :(",
                     confirmButtonText: "OK",
                 })
+                navigate("/buscar")
+
             })
     }, [])
 
