@@ -2,9 +2,7 @@ import { Link } from "react-router-dom"
 import './style.css'
 
 function CardBook({id, cover, title, authors, publisher}) {
-    console.log(cover);
 
-    //cover = infoBook.volumeInfo.imageLinks ?  infoBook.volumeInfo.imageLinks.thumbnail : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
     let titleFormatted = title.length > 52 ? `${title.slice(0, 49)}...` : title
 
     return (

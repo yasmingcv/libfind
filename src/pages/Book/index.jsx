@@ -14,12 +14,10 @@ function Bookmark({ id, dataBook, cover }) {
     const [isBookmarked, setIsBookmarked] = useState(savedBooks.find(obj => obj.id === id) !== undefined)
 
     const handleBookmarkClick = () => {
-        console.log(dataBook)
+        
         if (isBookmarked) {
             setIsBookmarked(false)
-            console.log('index', savedBooks.indexOf(savedBooks.find(obj => obj.id === id)))
             savedBooks.splice(savedBooks.indexOf(savedBooks.find(obj => obj.id === id)), 1)
-            console.log('dps do splice', savedBooks);
         } else {
             setIsBookmarked(true)
             savedBooks.push({ 
@@ -32,8 +30,6 @@ function Bookmark({ id, dataBook, cover }) {
         }
 
         localStorage.setItem('svdBooks', JSON.stringify(savedBooks))
-        console.log(savedBooks);
-        console.log(savedBooks.indexOf(id));
     }
 
     return (
@@ -76,8 +72,6 @@ function Book() {
                 })
             })
     }, [])
-
-    console.log('datanbsdb');
 
     return (
         <div className="book">
