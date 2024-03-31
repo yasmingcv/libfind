@@ -47,6 +47,9 @@
   .card__book h1, p{
     font-size: 1rem;
   }
+  .card__book p{
+    font-size: .8rem;
+  }
   .button__details{
     font-size: .9rem;
     padding: 4px;
