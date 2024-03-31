@@ -7,25 +7,33 @@ import Swal from 'sweetalert2'
 const moment = require('moment')
 
 
-function Bookmark(book, dataBook) {
-    const [isBookmarked, setIsBookmarked] = useState(false)
-
+function Bookmark({ id, dataBook, cover }) {
     const svdBooks = localStorage.getItem('svdBooks')
     let savedBooks = svdBooks ? JSON.parse(svdBooks) : []
 
+    const [isBookmarked, setIsBookmarked] = useState(savedBooks.find(obj => obj.id === id) !== undefined)
+
     const handleBookmarkClick = () => {
-        console.log(dataBook);
-        if(isBookmarked){
+        console.log(dataBook)
+        if (isBookmarked) {
             setIsBookmarked(false)
-            savedBooks = savedBooks.splice(savedBooks.indexOf(book), 1)
+            console.log('index', savedBooks.indexOf(savedBooks.find(obj => obj.id === id)))
+            savedBooks.splice(savedBooks.indexOf(savedBooks.find(obj => obj.id === id)), 1)
+            console.log('dps do splice', savedBooks);
         } else {
             setIsBookmarked(true)
-            savedBooks.push({id: book.book, title: dataBook.title, authors: dataBook.authors, publisher: dataBook.publisher})
+            savedBooks.push({ 
+                id: id, 
+                title: dataBook.title, 
+                authors: dataBook.authors, 
+                publisher: dataBook.publisher, 
+                cover: cover 
+            })
         }
 
         localStorage.setItem('svdBooks', JSON.stringify(savedBooks))
         console.log(savedBooks);
-        console.log(savedBooks.indexOf(book));
+        console.log(savedBooks.indexOf(id));
     }
 
     return (
@@ -39,7 +47,7 @@ function Bookmark(book, dataBook) {
     )
 }
 
-function Classification({classification}) {
+function Classification({ classification }) {
     return (
         <p className="classification">{classification}</p>
     )
@@ -48,7 +56,8 @@ function Classification({classification}) {
 function Book() {
     const [dataBook, setDataBook] = useState([])
     const params = useParams()
-    let cover = dataBook.imageLinks ?  dataBook.imageLinks.thumbnail : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
+    let cover = dataBook.imageLinks ? dataBook.imageLinks.thumbnail : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
+
 
     useEffect(() => {
 
@@ -68,8 +77,8 @@ function Book() {
             })
     }, [])
 
-   
-    
+    console.log('datanbsdb');
+
     return (
         <div className="book">
             <img src={cover} alt="capa do livro" />
@@ -77,21 +86,21 @@ function Book() {
                 <div className="book__title">
                     <span className="title__text">
                         <h1>{dataBook.title}</h1>
-                        <Bookmark book={params.id} dataBook={dataBook}/>
+                        <Bookmark id={params.id} dataBook={dataBook} cover={cover} />
                     </span>
                     <p className="book__autor">{dataBook.authors}</p>
                 </div>
 
 
 
-                <p className="book__description" dangerouslySetInnerHTML={{__html: dataBook.description}}/>
+                <p className="book__description" dangerouslySetInnerHTML={{ __html: dataBook.description }} />
 
-                <strong>{dataBook.pageCount} páginas | Publicado em {moment(dataBook.publishedDate).format('DD/MM/YYYY') }</strong>
+                <strong>{dataBook.pageCount} páginas | Publicado em {moment(dataBook.publishedDate).format('DD/MM/YYYY')}</strong>
 
                 <div className="classifications">
                     {
                         dataBook.categories ? dataBook.categories.map((category) => {
-                            return <Classification classification={category}/>
+                            return <Classification classification={category} />
                         }) : null
                     }
                 </div>
