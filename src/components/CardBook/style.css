@@ -36,3 +36,25 @@
     border-radius: 20px;
     font-size: 1.2rem;
 }
+@media(max-width: 500px){
+  .card__book{
+    width: 300px;
+  }
+  .img__book{
+    width: 90px;
+    height: auto;
+  }
+  .card__book h1, p{
+    font-size: 1rem;
+  }
+  .button__details{
+    font-size: .9rem;
+    padding: 4px;
+  }
+}
+
+@media(max-width: 310px) {
+    .card__book{
+        width: 90vw;
+      }
+}

@@ -2,11 +2,10 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 90vh;
     justify-content: space-around;
     align-items: center;
     color: #FFF;
-    padding: 0px 2vw;
+    padding: 2vh 2vw;
 }
 .home__info img{
     width: 50vw;
@@ -18,8 +17,8 @@
     align-items: flex-end;
     justify-content: space-evenly;
     width: 30vw;
+    gap: 10px;
     font-size: 1.3rem;
-    height: 90vh;
 }
 
 .button__text{
@@ -31,4 +30,26 @@
     font-weight: bold;
     font-size: 1.3rem
 
+}
+
+@media(max-width: 750px){
+    .home__info{
+        flex-direction: column;
+        padding: 50px;
+        gap: 10px;
+    }
+    .info__text{
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+        width: 50vw;
+    }
+}
+@media(max-width: 480px){
+    .home__info img{
+        width: 90vw;
+    }
+    .info__text{
+        width: 90vw;
+    }
 }

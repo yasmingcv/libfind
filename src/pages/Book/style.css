@@ -82,6 +82,9 @@
     text-decoration: none;
     color: #000;
 }
+footer{
+    display: none;
+}
 
 @keyframes pulse {
     0% {
@@ -102,4 +105,30 @@
     font-size: 2rem;
     cursor: pointer;
     animation: pulse 1s infinite;
+}
+
+@media(max-width: 750px){
+    .book{
+        flex-direction: column;
+    }
+    .book img{
+        width: 80vw;
+        height: auto;
+    }
+}
+@media(max-width: 480px){
+    .button__access{
+        width: 100%;
+        text-align: center;
+        align-self: center;
+    }
+    .classifications{
+        flex-direction: column;
+    }
+    .title__text h1{
+        font-size: 2rem;
+    }
+    .book__autor{
+        font-size: 1.2rem;
+    }
 }

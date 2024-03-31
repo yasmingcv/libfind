@@ -1,6 +1,7 @@
 import './style.css'
 import imghome from '../../assets/imghome.png'
 import { Link } from "react-router-dom"
+import Footer from '../../components/Footer/Footer'
 
 function Home() {
     return (
@@ -15,6 +16,8 @@ function Home() {
                     <Link to='/buscar' className='button__text'>Comece agora</Link>
 
                 </div>
+
+                
             </div>
         </div>
     )

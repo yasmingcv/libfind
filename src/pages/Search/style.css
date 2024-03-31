@@ -10,6 +10,7 @@
  .search h2 {
      color: #FFF;
      font-size: 2rem;
+     text-align: center;
  }
 
  .search input {
@@ -33,3 +34,9 @@
      align-items: center;
      justify-content: center;
  }
+
+@media(max-width: 480px){
+    .search input{
+        width: 90vw;
+    }
+}
