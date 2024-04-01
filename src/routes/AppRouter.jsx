@@ -4,7 +4,6 @@ import Header from '../components/Header/Header'
 import Search from '../pages/Search'
 import Saved from '../pages/Saved'
 import Book from '../pages/Book'
-import Footer from '../components/Footer/Footer'
 
 function AppRouter(){
     return(
@@ -16,7 +15,6 @@ function AppRouter(){
                 <Route path='/salvos' element={<Saved/>}/>
                 <Route path='/livro/:id' element={<Book/>}/>
             </Routes>
-        <Footer/>
         </BrowserRouter>
     )
 }
