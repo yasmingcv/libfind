@@ -1,6 +1,6 @@
 # LibFind
 
-O site Libfind te proporciona buscar diversos livros, consultar detalhes e salvar seus livro favoitos! Com base na [API de livros do Google](https://developers.google.com/books?hl=pt-br). Clique aqui para acessar o [**LibFind**](https://libfind.vercel.app/)
+O site Libfind te proporciona buscar diversos livros, consultar detalhes e salvar seus livros favoitos! Com base na [API de livros do Google](https://developers.google.com/books?hl=pt-br). Clique aqui para acessar o [**LibFind**](https://libfind.vercel.app/)
 
 ![Print screen da página inicial](./src/assets/captura.png)
 ---
